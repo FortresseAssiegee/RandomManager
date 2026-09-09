@@ -18,20 +18,13 @@ contract RandomManagerTest is Test {
     address internal projectOwner = address(0x1234);
 
     function _publicKey() internal pure returns (BLS256.G2Point memory) {
-        return
-            BLS256.G2Point({
-                x: [uint256(0), uint256(0)],
-                y: [uint256(0), uint256(0)]
-            });
+        return BLS256.G2Point({x: [uint256(0), uint256(0)], y: [uint256(0), uint256(0)]});
     }
 
     function setUp() public {
         implementation = new RandomProject();
         mockVerifier = new MockBLSVerifier();
-        randomManager = new RandomManager(
-            address(implementation),
-            address(mockVerifier)
-        );
+        randomManager = new RandomManager(address(implementation), address(mockVerifier));
     }
 
     function testConstructorStoresImplementationAndVerifier() public {
@@ -64,30 +57,16 @@ contract RandomManagerTest is Test {
     }
 
     function testPredictProjectAddressMatchesCreatedProxy() public {
-        address predicted = randomManager.predictProjectAddress(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT
-        );
+        address predicted = randomManager.predictProjectAddress(PROJECT_ID, projectOwner, USER_SALT);
 
-        address proxy = randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        address proxy = randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
 
         assertEq(proxy, predicted);
         assertTrue(proxy.code.length > 0);
     }
 
     function testCreateProjectRegistersProxy() public {
-        address proxy = randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        address proxy = randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
 
         assertEq(randomManager.projectProxy(PROJECT_ID), proxy);
         assertEq(randomManager.getProjectProxy(PROJECT_ID), proxy);
@@ -95,12 +74,7 @@ contract RandomManagerTest is Test {
     }
 
     function testCreateProjectInitializesProxyState() public {
-        address proxy = randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        address proxy = randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
 
         RandomProject project = RandomProject(proxy);
 
@@ -111,61 +85,27 @@ contract RandomManagerTest is Test {
     }
 
     function testPredictReturnsExistingProxyAfterCreate() public {
-        address proxy = randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        address proxy = randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
 
-        address predictedAfterCreate = randomManager.predictProjectAddress(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT
-        );
+        address predictedAfterCreate = randomManager.predictProjectAddress(PROJECT_ID, projectOwner, USER_SALT);
 
         assertEq(predictedAfterCreate, proxy);
     }
 
     function testCannotCreateSameProjectTwice() public {
-        randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
 
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                RandomManager.ProjectAlreadyExists.selector,
-                PROJECT_ID
-            )
-        );
-        randomManager.createProject(
-            PROJECT_ID,
-            projectOwner,
-            USER_SALT,
-            _publicKey()
-        );
+        vm.expectRevert(abi.encodeWithSelector(RandomManager.ProjectAlreadyExists.selector, PROJECT_ID));
+        randomManager.createProject(PROJECT_ID, projectOwner, USER_SALT, _publicKey());
     }
 
     function testCannotCreateProjectWithZeroOwner() public {
         vm.expectRevert(RandomManager.InvalidAddress.selector);
-        randomManager.createProject(
-            PROJECT_ID,
-            address(0),
-            USER_SALT,
-            _publicKey()
-        );
+        randomManager.createProject(PROJECT_ID, address(0), USER_SALT, _publicKey());
     }
 
     function testGetProjectProxyRevertsWhenProjectDoesNotExist() public {
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                RandomManager.ProjectNotExists.selector,
-                PROJECT_ID
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(RandomManager.ProjectNotExists.selector, PROJECT_ID));
         randomManager.getProjectProxy(PROJECT_ID);
     }
 }
