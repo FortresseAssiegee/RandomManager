@@ -1,0 +1,23 @@
+# Compiler files
+cache/
+out/
+
+# Deployment and transaction output
+broadcast/
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+frontend/.openai/
+
+# Local logs and coverage output
+*.log
+coverage/
+
+# Docs
+docs/
+
+# Dotenv file
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,15 @@
+.contract-collapse .el-collapse-item__header,
+.contract-collapse .el-collapse-item__wrap {
+  background: transparent;
+  color: #dce9f4;
+}
+
+.contract-collapse .el-collapse-item__header {
+  min-height: 64px;
+  height: auto;
+}
+
+.contract-collapse .el-collapse-item__content {
+  color: inherit;
+  padding-bottom: 26px;
+}

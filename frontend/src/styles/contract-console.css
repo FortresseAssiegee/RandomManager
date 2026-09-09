@@ -1,0 +1,71 @@
+.inspected-route { min-height: 100%; }
+
+.contract-console-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 26px auto 70px;
+  padding: 28px;
+  border: 1px solid rgba(123, 150, 177, 0.2);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(11, 26, 43, 0.96), rgba(7, 17, 31, 0.98));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.contract-console-head { display: flex; justify-content: space-between; gap: 28px; align-items: flex-end; margin-bottom: 22px; }
+.contract-console-head h2 { margin: 6px 0; color: #f7fbff; font-size: clamp(24px, 3vw, 38px); }
+.contract-console-head p { margin: 0; color: #8da5bb; }
+.console-actions { display: flex; align-items: center; gap: 12px; color: #718ba4; font-size: 12px; white-space: nowrap; }
+.console-error { margin-bottom: 16px; padding: 12px 15px; border: 1px solid rgba(255, 111, 97, 0.3); border-radius: 12px; background: rgba(255, 111, 97, 0.08); color: #ff9c92; }
+
+.contract-collapse { border: 0; --el-collapse-border-color: rgba(123, 150, 177, 0.16); }
+.contract-collapse :deep(.el-collapse-item__header),
+.contract-collapse :deep(.el-collapse-item__wrap) { background: transparent; color: #dce9f4; }
+.contract-collapse :deep(.el-collapse-item__header) { min-height: 64px; height: auto; }
+.contract-collapse :deep(.el-collapse-item__content) { color: inherit; padding-bottom: 26px; }
+.collapse-title { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; }
+.collapse-title b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #b8ff5a; color: #07111f; font-size: 11px; }
+.collapse-title em { padding: 2px 8px; border-radius: 999px; background: rgba(112, 142, 169, 0.15); color: #7f9ab2; font-style: normal; font-size: 11px; }
+
+.return-grid { display: grid; gap: 10px; }
+.return-row { display: grid; grid-template-columns: minmax(210px, .75fr) minmax(0, 1.7fr) 34px; gap: 16px; align-items: center; padding: 14px 16px; border: 1px solid rgba(123, 150, 177, 0.14); border-radius: 14px; background: rgba(4, 13, 24, 0.62); }
+.return-row.failed { border-color: rgba(255, 184, 77, 0.2); }
+.return-row > div { display: grid; gap: 4px; }
+.return-row code { color: #b8ff5a; font-size: 12px; }
+.return-row small { color: #6f8aa3; }
+.return-row pre { min-width: 0; margin: 0; color: #c7d8e7; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.6 "SFMono-Regular", Consolas, monospace; }
+.return-row.failed pre { color: #ffbd72; }
+.return-row .el-button { color: #7993aa; border-color: rgba(123, 150, 177, 0.18); background: transparent; }
+.console-empty { padding: 24px; border: 1px dashed rgba(123, 150, 177, 0.2); border-radius: 14px; color: #718ba4; text-align: center; }
+
+.request-selector { display: grid; grid-template-columns: minmax(180px, 320px) auto 1fr; gap: 10px; align-items: center; margin-bottom: 16px; }
+.request-selector .el-tag { justify-self: start; }
+.contract-limit-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: 13px; background: rgba(65, 155, 255, 0.08); color: #8eabc4; line-height: 1.6; }
+.contract-limit-note svg { flex: 0 0 18px; margin-top: 3px; color: #65b0ff; }
+.contract-limit-note strong { color: #d7e8f7; }
+.contract-limit-note.warning { background: rgba(255, 184, 77, 0.08); }
+.contract-limit-note.warning svg { color: #ffb84d; }
+
+.signature-explainer { margin-bottom: 16px; padding: 18px; border: 1px solid rgba(184, 255, 90, 0.18); border-radius: 16px; background: rgba(184, 255, 90, 0.045); }
+.signature-explainer p { margin: 12px 0 0; color: #8fa8bd; line-height: 1.7; }
+.signature-explainer code { color: #b8ff5a; }
+.signature-flow { display: flex; align-items: center; gap: 12px; color: #b6c9da; }
+.signature-flow span, .signature-flow strong { padding: 9px 12px; border-radius: 10px; background: rgba(112, 142, 169, 0.12); }
+.signature-flow strong { color: #07111f; background: #b8ff5a; }
+.signature-flow i { color: #6e8aa4; font-style: normal; }
+.signature-output { display: grid; gap: 10px; margin-top: 16px; }
+.signature-output > div:not(.signature-submit) { display: grid; grid-template-columns: 100px minmax(0, 1fr) 34px; gap: 12px; align-items: center; padding: 13px 15px; border-radius: 13px; background: rgba(4, 13, 24, 0.72); }
+.signature-output small { color: #6e8aa4; font-weight: 700; }
+.signature-output code { color: #e3f2ff; overflow-wrap: anywhere; }
+.signature-submit { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding-top: 6px; }
+
+@media (max-width: 760px) {
+  .contract-console-shell { width: min(100% - 24px, 1240px); padding: 18px; border-radius: 18px; }
+  .contract-console-head { align-items: flex-start; flex-direction: column; }
+  .return-row { grid-template-columns: 1fr 34px; }
+  .return-row > div { grid-column: 1 / -1; }
+  .request-selector { grid-template-columns: 1fr auto; }
+  .request-selector .el-tag { grid-column: 1 / -1; }
+  .signature-flow { align-items: stretch; flex-direction: column; text-align: center; }
+  .signature-output > div:not(.signature-submit) { grid-template-columns: 1fr 34px; }
+  .signature-output small { grid-column: 1 / -1; }
+  .signature-submit { align-items: stretch; flex-direction: column; }
+}
